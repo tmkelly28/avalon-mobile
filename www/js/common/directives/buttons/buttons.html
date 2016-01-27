@@ -1,0 +1,50 @@
+<div id="buttons">
+    <form>
+        <button
+            class="button button-block button-positive"
+            ng-disabled="!ableToBegin()"
+            ng-if="isHost()"
+            ng-hide="!game.waitingToPlay"
+            ng-click="startGame()">
+            Begin Game
+        </button>
+        <a
+            class="button button-block button-light"
+            ng-click="voteApprove()"
+            ng-if="(game.currentGamePhase === 'team voting') && user.needToVoteForTeam">
+            Approve
+        </a>
+        <a
+            class="button button-block button-dark"
+            ng-click="voteReject()"
+            ng-if="(game.currentGamePhase === 'team voting') && user.needToVoteForTeam">
+            Reject
+        </a>
+        <a
+            class="button button-block button-energized"
+            ng-click="successQuest()"
+            ng-if="(game.currentGamePhase === 'quest voting') && user.onQuest && user.needToVoteOnQuest">
+            Success
+        </a>
+        <a
+            class="button button-block button-assertive"
+            ng-click="failQuest()"
+            ng-if="(game.currentGamePhase === 'quest voting') && user.onQuest && user.needToVoteOnQuest">
+            Fail
+        </a>
+        <button
+            class="button button-block button-positive"
+            ng-click="proposeTeam()"
+            ng-disabled="disablePropose()"
+            ng-if="myTurn && (game.currentGamePhase === 'team building')">
+            Propose Team
+        </button>
+        <a
+            class="button button-block button-stable"
+            ng-if="myTurn && (game.currentGamePhase === 'team building')"
+            ng-click="resetTeam()">
+            Reset Team
+        </a>
+        <game-result></game-result>
+    </form>
+</div>

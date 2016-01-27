@@ -1,0 +1,39 @@
+<ion-view view-title="{{ game.name }}">
+    <ion-tabs class="tabs-light tabs-icon-top">
+
+        <ion-tab title="Table" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline">
+        <!-- Table Content -->
+            <ion-content has-footer="true" class="padding">
+                <buttons></buttons>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Knowledge" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
+        <!-- Knowledge Content -->
+            <ion-content has-footer="true" class="padding">
+            </ion-content>
+        </ion-tab>
+
+
+        <ion-tab title="Chat" icon-on="ion-ios-chatboxes" icon-off="ion-ios-chatboxes-outline">
+        <!-- Chat Content -->
+            <ion-content class="padding">
+                <chats></chats>
+            </ion-content>
+            <ion-footer-bar class="bar-subfooter">
+                <div class="list">
+                    <div class="item item-input-inset">
+                        <label class="item-input-wrapper">
+                            <input type="text" ng-model="message.text" placeholder="Enter your message">
+                        </label>
+                        <button class="button button-small button-positive" ng-click="addMessage(message)">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </ion-footer-bar>
+        </ion-tab>
+
+
+    </ion-tabs>
+</ion-view>

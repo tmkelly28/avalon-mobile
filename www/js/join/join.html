@@ -1,0 +1,21 @@
+<ion-view view-title="{{game.name}}">
+    <ion-content class="padded">
+        <h3>Join these players?</h3>
+        <div class="list">
+            <a class="item item-avatar" ng-repeat="player in game.players">
+                <img ng-src="{{ player.picture }}">
+                <h2>{{player.displayName}}</h2>
+            </a>
+        </div>
+        <button class="button button-assertive button-block" ng-if="(numberOfPlayers() === 10)">
+            Room is full - maximum number of players is 10
+        </button>
+        <button class="button button-energized button-block" ng-if="alreadyJoined()">
+                You have already joined this game
+        </button>
+        <button class="button button-positive button-block" ng-click="joinGame()" ng-disabled="(numberOfPlayers() === 10)">
+            Join
+        </button>
+    </ion-content>
+</ion-view>
+

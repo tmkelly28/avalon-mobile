@@ -1,0 +1,30 @@
+<ion-view view-title="Login">
+    <ion-content class="padded">
+
+        <h1 class="app-title">AVALON</h1>
+
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Email</span>
+                <input type="text" placeholder="Email" ng-model="credentials.email">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label" type="password">Password</span>
+                <input type="text" placeholder="Password" ng-model="credentials.password">
+            </label>
+        </div>
+
+        <button class="button button-block button-positive" ng-click="login(credentials)">
+            Sign In
+        </button>
+
+        <div class="row">
+            <div class="col col-50 col-offset-50 muted">New? <a href="#/signup">Create an Account</a></div>
+        </div>
+
+        <button class="button button-block button-assertive" ng-if="error">
+            {{ error.message }}
+        </button>
+
+    </ion-content>
+</ion-view>

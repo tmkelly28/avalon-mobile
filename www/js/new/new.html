@@ -1,0 +1,32 @@
+<ion-view view-title="New Game">
+    <ion-content class="padded">
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Room Name</span>
+                <input name='roomName' type='text' ng-model='newGame.name' placeholder='Enter a room name'/>
+            </label>
+            <div class="item range range-positive muted">
+                # Players:
+                <input type="range" name="volume" min="5" max="10" value="5" ng-model="newGame.numberOfPlayers" />
+                {{ newGame.numberOfPlayers }}
+            </div>
+            <ion-toggle ng-model="newGame.lady" toggle-class="toggle-calm">Lady of the Lake</ion-toggle>
+            <ion-toggle ng-model="newGame.percival" toggle-class="toggle-positive">Percival</ion-toggle>
+            <ion-toggle ng-model="newGame.mordred" toggle-class="toggle-dark">Mordred</ion-toggle>
+            <ion-toggle ng-model="newGame.morgana" toggle-class="toggle-assertive">Morgana</ion-toggle>
+            <ion-toggle ng-model="newGame.oberon" toggle-class="toggle-energized">Oberon</ion-toggle>
+        </div>
+
+        <button class='button button-block button-positive' ng-click="createNewGame()">
+            Create Room
+        </button>
+        <button class="button button-block button-energized" ng-if="newGame.lady && newGame.numberOfPlayers < 7">
+            Recommended: at least seven players
+        </button>
+       <button class="button button-full button-energized" ng-if="newGame.percival && newGame.numberOfPlayers === 5 && (!newGame.morgana && !newGame.mordred)">
+            Recommended: add Mordred or Morgana
+        </button>
+    </ion-content>
+</ion-view>
+
+

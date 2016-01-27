@@ -1,0 +1,21 @@
+<ion-view view-title="{{ user.displayName }}">
+    <ion-content class="padded">
+        <img class="user-picture" ng-src="{{ user.picture }}" />
+
+        <div class="list">
+            <a class="item">Wins <span class="badge badge-positive">{{ statistics.wins }}</span></a>
+            <a class="item">Losses <span class="badge badge-assertive">{{ statistics.losses }}</span></a>
+            <a class="item">Loyal Servant <span class="badge badge-calm">{{ statistics.loyal }}</span></a>
+            <a class="item">Merlin <span class="badge badge-calm">{{ statistics.merlin }}</span></a>
+            <a class="item">Percival <span class="badge badge-calm">{{ statistics.percival }}</span></a>
+            <a class="item">Minion of Mordred <span class="badge badge-dark">{{ statistics.minion }}</span></a>
+            <a class="item">Mordred <span class="badge badge-dark">{{ statistics.mordred }}</span></a>
+            <a class="item">Morgana <span class="badge badge-dark">{{ statistics.morgana }}</span></a>
+            <a class="item">Oberon <span class="badge badge-dark">{{ statistics.oberon }}</span></a>
+            <a class="item">Assassin <span class="badge badge-dark">{{ statistics.assassin }}</span></a>
+            <a class="item">Guessed Merlin <span class="badge badge-dark">{{ statistics.guessedMerlin }}</span></a>
+        </div>
+
+    </ion-content>
+</ion-view>
+
