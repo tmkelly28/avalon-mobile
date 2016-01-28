@@ -4,6 +4,9 @@
         <ion-tab title="Table" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline">
         <!-- Table Content -->
             <ion-content has-footer="true" class="padding">
+                <div ng-repeat="player in game.players">
+                    <player></player>
+                </div>
                 <buttons></buttons>
             </ion-content>
         </ion-tab>
@@ -11,6 +14,18 @@
         <ion-tab title="Knowledge" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
         <!-- Knowledge Content -->
             <ion-content has-footer="true" class="padding">
+                <div class="list">
+                    <a class="item">
+                        Vote Track
+                        <span class="badge badge-assertive">{{ game.currentVoteTrack }}</span>
+                    </a>
+                    <a class="item item-thumbnail-left" ng-repeat="quest in game.quests">
+                        <img src="/img/good_token.png" ng-if="quest.status === 'success'">
+                        <img src="/img/evil_token.png" ng-if="quest.status === 'fail'">
+                        <h2>Quest # {{ quest.questNumber }} <span ng-if="quest.toFail > 1">(2 fails)</span></h2>
+                        <p ng-if="!quest.status">{{ quest.playersNeeded }}</p>
+                    </a>
+                </div>
             </ion-content>
         </ion-tab>
 

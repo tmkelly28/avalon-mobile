@@ -9741,6 +9741,21 @@ a.button {
   margin: 1em auto;
   width: 128px; }
 
+player {
+  float: left; }
+  player img {
+    border-radius: 50%;
+    height: 58px;
+    width: 58px; }
+  player .card {
+    height: 40px;
+    width: 22px; }
+  player .character {
+    left: 0px; }
+  player .game-piece {
+    border-radius: 10%;
+    position: relative; }
+
 .app-title {
   letter-spacing: 0.7em;
   margin-top: 50% !important;

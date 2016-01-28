@@ -9,3 +9,28 @@
     margin: 1em auto;
     width: 128px;
 }
+
+player {
+
+    float: left;
+
+    img {
+        border-radius: 50%;
+        height: 58px;
+        width: 58px;
+    }
+
+    .card {
+        height: 40px;
+        width: 22px;
+    }
+
+    .character {
+        left: 0px;
+    }
+
+    .game-piece {
+        border-radius: 10%;
+        position: relative;
+    }
+}
