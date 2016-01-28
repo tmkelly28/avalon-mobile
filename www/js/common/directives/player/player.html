@@ -1,31 +1,36 @@
+
+
+
+
+
 <!-- Player -->
 <h5>
 	<span>{{ player.displayName }}</span>
 	<!-- Lady -->
-	<img ng-src="/icons/lady_of_the_lake.png"
+	<!-- <img ng-src="/img/lady_of_the_lake.png"
 		ng-if="game.currentLadyOfTheLake._id === player._id"
-		class="lady game-piece card" />
+		class="lady game-piece card" /> -->
 </h5>
 <img ng-src="{{ player.picture }}"
 	ng-class="{activeShadow: (game.currentPlayerTurn._id === player._id)}" />
 <!-- Character -->
-<img class="character game-piece card"
+<!-- <img class="character game-piece card"
 	ng-src="{{ player.imageUrl }}"
-	ng-if="me(player) || (game.currentGamePhase.slice(0, 3) === 'end') || (game.currentGamePhase === 'guess merlin' && player.loyalty === 'evil' && player.character !== 'Oberon')" />
+	ng-if="me(player) || (game.currentGamePhase.slice(0, 3) === 'end') || (game.currentGamePhase === 'guess merlin' && player.loyalty === 'evil' && player.character !== 'Oberon')" /> -->
 <!-- Approve -->
-<img ng-src="/icons/approve.png"
+<!-- <img ng-src="/img/approve.png"
 	ng-if="player.approvedQuest && (game.currentGamePhase === 'quest voting' || game.currentGamePhase === 'team building')"
 	ng-hide="(game.currentQuestIdx === 0 && game.currentVoteTrack === 0 && game.currentGamePhase === 'team building')"
-	class="voteToken game-piece token" />
+	class="voteToken game-piece token" /> -->
 <!-- Reject -->
-<img ng-src="/icons/reject.png"
+<!-- <img ng-src="/img/reject.png"
 	ng-if="!player.approvedQuest && (game.currentGamePhase === 'quest voting' || game.currentGamePhase === 'team building')"
 	ng-hide="(game.currentQuestIdx === 0 && game.currentVoteTrack === 0) && game.currentGamePhase === 'team building'"
-	class="voteToken game-piece token" />
+	class="voteToken game-piece token" /> -->
 <!-- Sigil -->
-<img ng-src="/icons/sigil.png"
+<!-- <img ng-src="/img/sigil.png"
 	ng-if="player.onQuest"
-	class="sigil game-piece token" />
+	class="sigil game-piece token" /> -->
 
 <div id="playerSelection">
 	<a name="addToTeam"

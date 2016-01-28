@@ -3,7 +3,7 @@
 
         <ion-tab title="Table" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline">
         <!-- Table Content -->
-            <ion-content has-footer="true" class="padding">
+            <ion-content class="has-header has-subheader has-footer" class="padding">
                 <div ng-repeat="player in game.players">
                     <player></player>
                 </div>
@@ -23,7 +23,7 @@
                         <img src="/img/good_token.png" ng-if="quest.status === 'success'">
                         <img src="/img/evil_token.png" ng-if="quest.status === 'fail'">
                         <h2>Quest # {{ quest.questNumber }} <span ng-if="quest.toFail > 1">(2 fails)</span></h2>
-                        <p ng-if="!quest.status">{{ quest.playersNeeded }}</p>
+                        <p ng-if="!quest.status">{{ quest.playersNeeded }} Players Needed</p>
                     </a>
                 </div>
             </ion-content>

@@ -76,36 +76,36 @@ app.factory('GameFactory', function () {
 		}
 		// add special characters
 		if (game.usePercival) {
-			characters.push(new Character('good', 'Percival', '/icons/percival.png', false, false, false));
+			characters.push(new Character('good', 'Percival', '/img/percival.png', false, false, false));
 			good--;
 		}
 		if (game.useMordred && bad > 1) {
-			characters.push(new Character('evil', 'Mordred', '/icons/mordred.png', false, true, false));
+			characters.push(new Character('evil', 'Mordred', '/img/mordred.png', false, true, false));
 			bad--;
 		}
 		if (game.useMorgana && bad > 1) {
-			characters.push(new Character('evil', 'Morgana', '/icons/morgana.png', true, true, true));
+			characters.push(new Character('evil', 'Morgana', '/img/morgana.png', true, true, true));
 			bad--;
 		}
 		if (game.useOberon && bad > 1) {
-			characters.push(new Character('evil', 'Oberon', '/icons/oberon.png', true, false, false));
+			characters.push(new Character('evil', 'Oberon', '/img/oberon.png', true, false, false));
 		}
 		// add remaining characters, including assassin and merlin
-		characters.push(new Character('evil', 'Assassin', '/icons/assassin.png', true, true, false));
+		characters.push(new Character('evil', 'Assassin', '/img/assassin.png', true, true, false));
 		bad--;
-		characters.push(new Character('good', 'Merlin', '/icons/merlin.png', false, false, true));
+		characters.push(new Character('good', 'Merlin', '/img/merlin.png', false, false, true));
 		good--;
 		while (good > 0) {
-			characters.push(new Character('good', 'Servant of Arthur', '/icons/loyal_' + good + '.png', false, false, false));
+			characters.push(new Character('good', 'Servant of Arthur', '/img/loyal_' + good + '.png', false, false, false));
 			good--;
 		}
 		while (bad > 0) {
-			characters.push(new Character('evil', 'Minion of Mordred', '/icons/minion_' + bad + '.png', true, true, false));
+			characters.push(new Character('evil', 'Minion of Mordred', '/img/minion_' + bad + '.png', true, true, false));
 			bad--;
 		}
 		// shuffle characters
 		characters = _.shuffle(characters);
-		
+
 		// assign characters
 		for (let player in game.players) {
 			let playerRef = new Firebase("https://resplendent-torch-2655.firebaseio.com/games/" + game.$id + '/players/' + player);
