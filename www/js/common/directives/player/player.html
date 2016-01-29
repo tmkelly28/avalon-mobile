@@ -1,18 +1,16 @@
-
-
-
+<h5>{{ player.displayName }}</h5>
+<img ng-src="{{ player.picture }}" ng-click="select(player._id)" ng-class="{selected: isSelected(player._id)}" />
+<!-- <img ng-src="{{ player.picture }}" ng-class="{activeShadow: (game.currentPlayerTurn._id === player._id)}" /> -->
 
 
 <!-- Player -->
-<h5>
-	<span>{{ player.displayName }}</span>
-	<!-- Lady -->
-	<!-- <img ng-src="/img/lady_of_the_lake.png"
-		ng-if="game.currentLadyOfTheLake._id === player._id"
-		class="lady game-piece card" /> -->
-</h5>
-<img ng-src="{{ player.picture }}"
-	ng-class="{activeShadow: (game.currentPlayerTurn._id === player._id)}" />
+<!-- <h5>
+    <span>{{ player.displayName }}</span> -->
+    <!-- Lady -->
+    <!-- <img ng-src="/img/lady_of_the_lake.png"
+        ng-if="game.currentLadyOfTheLake._id === player._id"
+        class="lady game-piece card" /> -->
+<!-- </h5> -->
 <!-- Character -->
 <!-- <img class="character game-piece card"
 	ng-src="{{ player.imageUrl }}"
@@ -32,14 +30,14 @@
 	ng-if="player.onQuest"
 	class="sigil game-piece token" /> -->
 
-<div id="playerSelection">
+<!-- <div>
 	<a name="addToTeam"
 		ng-if="myTurn && game.roomLeftOnTeam && (game.currentGamePhase === 'team building') && !player.onQuest"
 		href="#"
-		class="selectPlayer"
+		class="button button-small button-outline button-positive"
 		ng-click="addToTeam(player)">
-		<span class="glyphicon glyphicon-plus"></span>
-		Add to team</a>
+		<i class="fa fa-plus"></i> Add to Team
+	</a>
 	<a name="guessMerlin"
 		ng-if="user.character === 'Assassin' && (game.currentGamePhase === 'guess merlin') && (player.loyalty === 'good' || player.character === 'Oberon')"
 		href="#"
@@ -54,3 +52,4 @@
 		<span class="glyphicon glyphicon-eye-open"></span>
 		Use Lady of the Lake</a>
 </div>
+ -->

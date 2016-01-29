@@ -2,8 +2,9 @@
 
 window.app = angular.module('avalon', ['ionic', 'firebase'])
 
-    .config($urlRouterProvider => {
+    .config(($urlRouterProvider, $ionicConfigProvider) => {
         $urlRouterProvider.otherwise('/');
+        $ionicConfigProvider.tabs.position('bottom');
     })
 
     .run(($ionicPlatform, $rootScope, $state, AuthService) => {
