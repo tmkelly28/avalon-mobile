@@ -7,6 +7,9 @@
     "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build"
   },
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "babel": "^6.3.26",
     "babel-core": "^6.4.5",
