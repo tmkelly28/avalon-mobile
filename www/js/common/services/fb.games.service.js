@@ -32,7 +32,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 				resolve(key);
 			})
 			.then(null, err => reject(err));
-		})		
+		})
 		.then(null, err => console.error(err));
 	};
 
@@ -185,7 +185,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 					previousQuestFail: game.currentQuestFail
 				});
 			} // score listener should take over otherwise
-			service.goToNextTurn(id, false);	
+			service.goToNextTurn(id, false);
 		});
 	};
 
@@ -222,7 +222,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 		if (result === 'evil') gameRef.update({ currentGamePhase: 'end evil wins' });
 		else if (result === 'merlinGuessed') gameRef.update({ currentGamePhase: 'end evil guessed merlin' });
 		else if (result === 'merlinNotGuessed') gameRef.update({ currentGamePhase: 'end good wins' });
-		else gameRef.update({ currentGamePhase: 'guess merlin' });		
+		else gameRef.update({ currentGamePhase: 'guess merlin' });
 	};
 
 	service.guessMerlin = function (id, player) {

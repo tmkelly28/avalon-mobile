@@ -45,6 +45,12 @@
             ng-click="resetTeam()">
             Reset Team
         </a>
-        <game-result></game-result>
+        <button
+            class="button button-block button-calm"
+            ng-click="useLady()"
+            ng-disabled="disableLady()"
+            ng-if="(user._id === game.currentLadyOfTheLake._id) && (game.currentGamePhase === 'using lady')">
+            Use Lady
+        </button>
     </form>
 </div>

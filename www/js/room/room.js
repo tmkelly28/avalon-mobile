@@ -24,38 +24,62 @@ app.config($stateProvider => {
 
 app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Session, FbChatService, FbGamesService, FbListeners) => {
 
-    function _removeById (idArray, id) {
-        let idx = idArray.indexOf(id);
-        idx > -1 ? idArray.splice(idx, 1) : null;
+    function _remove (playerArray, player) {
+        let idx = _.findIndex(playerArray, { _id: player._id });
+        idx > -1 ? playerArray.splice(idx, 1) : null;
     }
 
-	$scope.game = game;
-	$scope.chats = chats;
-	$scope.user = user;
-	$scope.userRecord = userRecord;
-	$scope.players = players;
-	$scope.myTurn = false;
-	$scope.investigatedPlayer = null;
-    $scope.selected = [];
+    function _has (playerArray, player) {
+        return _.findIndex(playerArray, { _id: player._id }) > -1;
+    }
 
-	FbListeners.registerListeners($scope.game, $scope.userRecord, $scope);
+	const addToTeam = (player) => FbGamesService.addToTeam($scope.game.$id, player);
 
-	$scope.addMessage = (message) => message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
-	$scope.isHost = () => Session.user._id === $scope.game.host;
-	$scope.ableToBegin = () => Object.keys($scope.game.players).length >= $scope.game.targetSize && Object.keys($scope.game.players).length < 11;
-	$scope.startGame = () => FbGamesService.startGame($scope.game);
-	$scope.me = (player) => player._id === $scope.user._id;
-	$scope.addToTeam = (player) => FbGamesService.addToTeam($scope.game.$id, player);
-	$scope.proposeTeam = () => FbGamesService.proposeTeam($scope.game.$id);
-	$scope.disablePropose = () => !$scope.game.currentQuestPlayersGoing ? true : $scope.game.currentQuestPlayersNeeded !== Object.keys($scope.game.currentQuestPlayersGoing).length;
-    $scope.resetTeam = () => FbGamesService.resetTeam($scope.game.$id);
+    $scope.game = game; // Object
+    $scope.chats = chats; // Object[]
+    $scope.user = user; // Object
+    $scope.userRecord = userRecord; // Object
+    $scope.players = players; // Object[]
+    $scope.myTurn = false; // boolean
+    $scope.investigatedPlayer = null; // Object
+    $scope.selected = []; // Object[]
+
+    FbListeners.registerListeners($scope.game, $scope.userRecord, $scope);
+
+    $scope.addMessage = (message) => message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
+    $scope.isHost = () => Session.user._id === $scope.game.host;
+    $scope.ableToBegin = () => Object.keys($scope.game.players).length >= $scope.game.targetSize && Object.keys($scope.game.players).length < 11;
+    $scope.startGame = () => FbGamesService.startGame($scope.game);
+    $scope.me = (player) => player._id === $scope.user._id;
+	$scope.proposeTeam = () => {
+        return Promise.all($scope.selected.map(playerId => addToTeam(playerId)))
+            .then(() => {
+                $scope.selected = [];
+                FbGamesService.proposeTeam($scope.game.$id)
+            });
+    };
+	$scope.disablePropose = () => $scope.selected.length !== $scope.game.currentQuestPlayersNeeded;
+    $scope.resetTeam = () => {
+        $scope.selected = [];
+        FbGamesService.resetTeam($scope.game.$id)
+    };
     $scope.voteApprove = () => FbGamesService.approveTeam($scope.game.$id, $scope.userRecord.playerKey);
     $scope.voteReject = () => FbGamesService.rejectTeam($scope.game.$id, $scope.userRecord.playerKey);
     $scope.successQuest = () => FbGamesService.voteToSucceed($scope.game.$id, $scope.userRecord.playerKey);
     $scope.failQuest = () => FbGamesService.voteToFail($scope.game.$id, $scope.userRecord.playerKey);
     $scope.guessMerlin = (player) => FbGamesService.guessMerlin($scope.game.$id, player);
 	$scope.range = (n, m) => _.range(n, m);
-	$scope.useLady = (player) => {
+    $scope.disableLady = () => {
+        if ($scope.selected.length !== 1) return true;
+        if ($scope.selected.length === 1) {
+            let player = $scope.selected[0];
+            if (player.hasBeenLadyOfTheLake || player._id === user._id) return true;
+        }
+        return false;
+    };
+	$scope.useLady = () => {
+        let player = $scope.selected[0];
+        $scope.selected = [];
 		// this won't persist after refresh
 		$scope.investigatedPlayer = {
 			loyalty: player.loyalty,
@@ -63,26 +87,19 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
 		}
 		FbGamesService.useLady($scope.game.$id, player);
 	};
-    $scope.isSelected = (id) => $scope.selected.includes(id);
-    $scope.select = (id) => $scope.isSelected(id) ? _removeById($scope.selected, id) : $scope.selected.push(id);
-    $scope.delegate = (player, evt) => {
-        // maybe add this to an array on scope and add the class using ng class instead
-        if (![].slice.call(evt.target.classList).includes('selected')) {
-            evt.target.classList.add('selected');
-            return;
-        } else {
-            if ($scope.myTurn &&
-                $scope.game.roomLeftOnTeam &&
-                $scope.game.currentGamePhase === 'team building' &&
-                !player.onQuest) $scope.addToTeam(player);
-            else if ($scope.user.character === 'Assassin' &&
-                $scope.game.currentGamePhase === 'guess merlin' &&
-                (player.loyalty === 'good' || player.character === 'Oberon')) $scope.guessMerlin(player);
-            else if ($scope.user._id === $scope.game.currentLadyOfTheLake._id &&
-                $scope.game.currentGamePhase === 'using lady' &&
-                player.hasBeenLadyOfTheLake &&
-                player._id !== $scope.user._id) $scope.useLady(player);
-            else evt.target.classList.remove('selected')
-        }
+    $scope.isSelected = (player) => _has($scope.selected, player);
+    $scope.select = (player) => $scope.isSelected(player) ? _remove($scope.selected, player) : $scope.selected.push(player);
+    $scope.revealPicture = (player) => {
+        if (player.onQuest && $scope.game.currentGamePhase === 'team voting') return '/img/sigil.png';
+        if (player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/approve.png';
+        if (!player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/reject.png';
+        if (game.currentLadyOfTheLake._id === player._id) return '/img/lady_of_the_lake.png';
+        if ($scope.me(player) ||
+            ($scope.game.currentGamePhase.slice(0, 3) === 'end') ||
+            ($scope.game.currentGamePhase === 'guess merlin' &&
+                player.loyalty === 'evil' &&
+                player.character !== 'Oberon')) return player.imageUrl;
+        return player.picture;
     }
+
 });
