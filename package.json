@@ -4,7 +4,8 @@
   "description": "avalon-client: An Ionic project",
   "main": "server/start.js",
   "scripts": {
-    "start": "nodemon --watch server -e js,html server/start.js"
+    "start": "nodemon --watch server -e js,html server/start.js",
+    "postinstall": "gulp build"
   },
   "dependencies": {
     "babel": "^6.3.26",

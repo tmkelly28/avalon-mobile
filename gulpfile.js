@@ -106,7 +106,7 @@ gulp.task('buildCSSProduction', function () {
 });
 
 gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./www/js/app.js', './www/js/**/*.js'])
         .pipe(concat('main.js'))
         .pipe(babel({
             presets: ['es2015']
