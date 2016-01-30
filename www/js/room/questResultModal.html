@@ -1,0 +1,17 @@
+<ion-modal-view>
+    <ion-content class="padding">
+        <div>
+            <span ng-repeat="n in range(0, game.previousQuestSuccess)">
+                <img class="card grail"
+                    ng-src="/img/success.png" />
+            </span>
+            <span ng-repeat="n in range(0, game.previousQuestFail)">
+                <img class="card grail"
+                    ng-src="/img/fail.png" />
+            </span>
+        </div>
+        <p class="muted" ng-if="game.previousQuestFail === 0">Success! The knights are victorious!</p>
+        <p class="muted" ng-if="game.previousQuestFail !== 0">Alas! The quest has ended in failure!</p>
+    <button class="button button-block button-light" ng-click="closeQuestResultModal()">Close</button>
+    </ion-content>
+</ion-modal-view>

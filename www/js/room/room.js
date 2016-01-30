@@ -35,16 +35,23 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
 
 	const addToTeam = (player) => FbGamesService.addToTeam($scope.game.$id, player);
 
-    $scope.game = game; // Object
-    $scope.chats = chats; // Object[]
-    $scope.user = user; // Object
-    $scope.userRecord = userRecord; // Object
-    $scope.players = players; // Object[]
-    $scope.myTurn = false; // boolean
-    $scope.investigatedPlayer = null; // Object
-    $scope.selected = []; // Object[]
+    $scope.game = game;
+    $scope.chats = chats;
+    $scope.user = user;
+    $scope.userRecord = userRecord;
+    $scope.players = players;
+    $scope.myTurn = false;
+    $scope.investigatedPlayer = null;
+    $scope.selected = [];
+    $scope.gameStartModal = $scope.ladyModal = $scope.questResultModal = null;
+
+    window.tmkScope = $scope;
 
     FbListeners.registerListeners($scope.game, $scope.userRecord, $scope);
+
+    $scope.closeGameStartModal = () => $scope.gameStartModal.hide().then(() => $scope.gameStartModal.remove());
+    $scope.closeLadyModal = () => $scope.ladyModal.hide().then(() => $scope.ladyModal.remove());
+    $scope.closeQuestResultModal = () => $scope.questResultModal.hide().then(() => $scope.questResultModal.remove());
 
     $scope.addMessage = (message) => message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
     $scope.isHost = () => Session.user._id === $scope.game.host;
@@ -97,7 +104,7 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
 			loyalty: _player.loyalty,
 			displayName: _player.displayName
 		}
-		FbGamesService.useLady($scope.game.$id, _player);
+		FbGamesService.useLady($scope.game.$id, _player, $scope);
 	};
     $scope.isSelected = (player) => _has($scope.selected, player);
     $scope.select = (player) => $scope.isSelected(player) ? _remove($scope.selected, player) : $scope.selected.push(player);
@@ -106,7 +113,7 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
         if (player.onQuest && $scope.game.currentGamePhase === 'team voting') return '/img/sigil.png';
         if (player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/approve.png';
         if (!player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/reject.png';
-        if (game.currentLadyOfTheLake._id === player._id && $scope.game.currentGamePhase.slice(0, 3) !== 'end') return '/img/lady_of_the_lake.png';
+        if (game.useLady && game.currentLadyOfTheLake._id === player._id && $scope.game.currentGamePhase.slice(0, 3) !== 'end') return '/img/lady_of_the_lake.png';
         if ($scope.me(player) ||
             ($scope.game.currentGamePhase.slice(0, 3) === 'end') ||
             ($scope.game.currentGamePhase === 'guess merlin' &&

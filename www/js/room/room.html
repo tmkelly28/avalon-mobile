@@ -15,10 +15,40 @@
         <!-- Knowledge Content -->
             <ion-content class="padding mt43">
                 <div class="list">
+
+                    <div class="item item-divider">Game Info</div>
                     <a class="item">
                         Vote Track
                         <span class="badge badge-assertive">{{ game.currentVoteTrack }}</span>
                     </a>
+                    <div class="item item-divider">Turn Order</div>
+                    <a class="item" ng-hide="!game.quests" ng-repeat="player in game.turnOrder">
+                        <span ng-class="{highlighted:player._id === game.currentPlayerTurn._id}">{{ player.displayName }}</span>
+                    </a>
+
+
+
+                    <div class="item item-divider">Knowledge About Other Players</div>
+                    <a class="item" class="item item-icon-left" ng-if="investigatedPlayer">
+                        <i class="fa fa-eye"></i>
+                        {{ investigatedPlayer.displayName }} is {{ investigatedPlayer.loyalty }}
+                    </a>
+                    <span ng-repeat="player in game.players">
+                        <a class="item" ng-if="(user.character==='Percival') && (player.character==='Morgana' || player.character==='Merlin')">
+                            <i class="fa fa-eye"></i>
+                            {{ player.displayName }} is a wizard
+                        </a>
+                        <a class="item" ng-if="(user.loyalty==='evil') && (player.loyalty==='evil') && (player.character !=='Oberon') && (user._id !== player._id)">
+                            <i class="fa fa-eye"></i>
+                            {{ player.displayName }} is a fellow agent of evil
+                        </a>
+                        <a class="item" ng-if="(user.character==='Merlin') && (player.loyalty==='evil') && (player.character !=='Mordred')">
+                            <i class="fa fa-eye"></i>
+                            {{ player.displayName }} is an agent of evil
+                        </a>
+                    </span>
+
+                    <div class="item item-divider">Quests</div>
                     <a class="item item-thumbnail-left" ng-repeat="quest in game.quests">
                         <img src="/img/good_token.png" ng-if="quest.status === 'success'">
                         <img src="/img/evil_token.png" ng-if="quest.status === 'fail'">

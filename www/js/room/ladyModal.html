@@ -1,0 +1,13 @@
+<ion-modal-view>
+    <ion-content class="padding">
+        <img ng-src="/img/loyalty_good.png" ng-if="investigatedPlayer.loyalty === 'good'" class="card character" />
+        <img ng-src="/img/loyalty_evil.png" ng-if="investigatedPlayer.loyalty === 'evil'" class="card character" />
+        <p class="muted" ng-if="investigatedPlayer.loyalty === 'good'">
+            {{ investigatedPlayer.displayName }} is a loyal servant of Arthur!
+        </p>
+        <p class="muted" ng-if="investigatedPlayer.loyalty === 'evil'">
+            {{ investigatedPlayer.displayName }} is an evil minion of Mordred!
+        </p>
+        <button class="button button-block button-light" ng-click="closeLadyModal()">Close</button>
+    </ion-content>
+</ion-modal-view>

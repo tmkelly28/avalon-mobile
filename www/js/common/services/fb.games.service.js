@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFactory, UserService) {
+app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFactory, UserService, $ionicModal) {
 
 	const gamesRef = new Firebase("https://resplendent-torch-2655.firebaseio.com/games");
 	const service = this;
@@ -233,7 +233,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 		})
 	};
 
-	service.useLady = function (id, player) {
+	service.useLady = function (id, player, scope) {
 		let gameRef = gamesRef.child(id);
 		let playerHasBeenLadyRef = gameRef.child('players/' + player.playerKey + '/hasBeenLadyOfTheLake');
 		playerHasBeenLadyRef.set(true);
@@ -241,6 +241,15 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 			currentLadyOfTheLake: player,
 			currentGamePhase: 'team building'
 		});
+        $ionicModal
+                .fromTemplateUrl('js/room/ladyModal.html', {
+                    scope: scope,
+                    animation: 'slide-in-up'
+                })
+                .then(modal => {
+                    scope.ladyModal = modal;
+                    scope.ladyModal.show();
+                });
 	};
 
 });

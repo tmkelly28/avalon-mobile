@@ -52,6 +52,10 @@
             ng-if="(user._id === game.currentLadyOfTheLake._id) && (game.currentGamePhase === 'using lady')">
             Use Lady
         </button>
+
+        <button class="button button-block button-energized" ng-if="game.currentGamePhase==='guess merlin'">
+            Good has prevailed, but now evil may guess Merlin
+        </button>
         <button
             class="button button-block button-assertive"
             ng-click="guessMerlin()"
@@ -59,5 +63,15 @@
             ng-if="user.character === 'Assassin' && (game.currentGamePhase === 'guess merlin')">
             Guess Merlin
         </button>
+        <a class="button button-block button-assertive" ng-if="game.currentGamePhase==='end evil wins'" ui-sref="lobby({ uid:user._id })">
+            Evil wins! Tap to return to Lobby
+        </a>
+        <a class="button button-block button-positive" ng-if="game.currentGamePhase==='end good wins'" ui-sref="lobby({ uid:user._id })">
+            Good wins! Tap to return to Lobby
+        </a>
+        <a class="button button-block button-assertive" ng-if="game.currentGamePhase==='end evil guessed merlin'" ui-sref='lobby({ uid:user._id })'>
+            Evil Guessed Merlin! Evil Wins - tap to return to Lobby
+        </a>
+
     </form>
 </div>

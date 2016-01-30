@@ -9747,6 +9747,25 @@ a.button {
 .selected {
   box-shadow: 2px 2px 2px 2px black; }
 
+.card {
+  border-radius: 10%; }
+
+.character {
+  display: block;
+  margin: 1em auto !important; }
+
+.grail {
+  float: left;
+  height: 133px;
+  margin: 1em !important;
+  width: 91px; }
+
+.highlighted {
+  color: blue; }
+
+ion-modal-view p {
+  text-align: center; }
+
 player {
   float: left;
   a-position: relative; }

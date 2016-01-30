@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FbListeners', function (FbGamesService, Session, UserService) {
+app.service('FbListeners', function (FbGamesService, Session, UserService, $ionicModal) {
 
 	this.registerListeners = function (game, user, scope) {
 
@@ -8,10 +8,11 @@ app.service('FbListeners', function (FbGamesService, Session, UserService) {
 		const fb = 'https://resplendent-torch-2655.firebaseio.com/games/';
 		const gameId = game.$id;
 		const gameRef = new Firebase(fb + gameId);
-		const playerRef = gameRef.child('players/' + user.playerKey);
-		const playerIsOnQuestRef = gameRef.child('players/' + user.playerKey + '/onQuest');
-		const playerNeedToVoteForTeamRef = gameRef.child('players/' + user.playerKey + '/needToVoteForTeam');
-		const playerNeedToVoteOnQuestRef = gameRef.child('players/' + user.playerKey + '/needToVoteOnQuest');
+        const playerRef = gameRef.child('players/' + user.playerKey);
+        const playerIsOnQuestRef = gameRef.child('players/' + user.playerKey + '/onQuest');
+        const playerNeedToVoteForTeamRef = gameRef.child('players/' + user.playerKey + '/needToVoteForTeam');
+        const playerNeedToVoteOnQuestRef = gameRef.child('players/' + user.playerKey + '/needToVoteOnQuest');
+        const waitingToPlayRef = gameRef.child('waitingToPlay');
 		const currentQuestPlayersGoingRef = gameRef.child('currentQuestPlayersGoing');
 		const currentPlayerTurnRef = gameRef.child('currentPlayerTurn');
 		const currentGamePhaseRef = gameRef.child('currentGamePhase');
@@ -37,18 +38,42 @@ app.service('FbListeners', function (FbGamesService, Session, UserService) {
 			let questSize = Object.keys(game.currentQuestPlayersGoing).length;
 			if ((successes + fails) === questSize) {
 				if (fails >= game.currentQuestToFail) FbGamesService.goToQuestResult(gameId, 'evil');
-				else FbGamesService.goToQuestResult(gameId, 'good');
+                else FbGamesService.goToQuestResult(gameId, 'good');
+                $ionicModal
+                    .fromTemplateUrl('js/room/questResultModal.html', {
+                        scope: scope,
+                        animation: 'slide-in-up'
+                    })
+                    .then(modal => {
+                        scope.questResultModal = modal;
+                        scope.questResultModal.show();
+                    });
 			}
 		}
+
+        //show modal at start of game
+        waitingToPlayRef.on('value', snap => {
+            if (!snap.val()) {
+                $ionicModal
+                    .fromTemplateUrl('js/room/gameStartModal.html', {
+                        scope: scope,
+                        animation: 'slide-in-up'
+                    })
+                    .then(modal => {
+                        scope.gameStartModal = modal;
+                        scope.gameStartModal.show();
+                    });
+            }
+        });
 
 		// update voting buttons
 		currentGamePhaseRef.on('value', snap => {
 			if (snap.val() === 'team voting') {
 				playerNeedToVoteForTeamRef.set(true);
 				playerNeedToVoteOnQuestRef.set(true);
-			} else if (snap.val() === 'end evil wins') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'evil', false)); 
-			else if (snap.val() === 'end good wins') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'good', false)); 
-			else if (snap.val() === 'end evil guessed merlin') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'evil', true)); 
+			} else if (snap.val() === 'end evil wins') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'evil', false));
+			else if (snap.val() === 'end good wins') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'good', false));
+			else if (snap.val() === 'end evil guessed merlin') playerRef.once('value', data => UserService.updateStatistics(data.val(), 'evil', true));
 		});
 
 		// update player turn
