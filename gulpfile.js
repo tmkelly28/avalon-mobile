@@ -98,7 +98,7 @@ gulp.task('buildCSSProduction', function () {
     return gulp.src('./scss/ionic.app.scss')
         .pipe(sass())
         .pipe(rename('style.css'))
-        .pipe(minifyCSS())
+        .pipe(minifyCss())
         .pipe(rename({ extname: '.min.css' }))
         .pipe(gulp.dest('./www/build/'))
 });
