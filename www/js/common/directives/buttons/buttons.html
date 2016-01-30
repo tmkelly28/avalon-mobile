@@ -52,5 +52,12 @@
             ng-if="(user._id === game.currentLadyOfTheLake._id) && (game.currentGamePhase === 'using lady')">
             Use Lady
         </button>
+        <button
+            class="button button-block button-assertive"
+            ng-click="guessMerlin()"
+            ng-disabled="disableGuessMerlin()"
+            ng-if="user.character === 'Assassin' && (game.currentGamePhase === 'guess merlin')">
+            Guess Merlin
+        </button>
     </form>
 </div>
