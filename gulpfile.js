@@ -4,7 +4,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
 var gutil = require('gulp-util');
 var babel = require('gulp-babel');
-var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
@@ -15,7 +14,6 @@ var rename = require('gulp-rename');
 var runSeq = require('run-sequence');
 var notify = require('gulp-notify');
 var eslint = require('gulp-eslint');
-var sh = require('shelljs');
 
 var paths = {
     sass: ['./scss/**/*.scss']
