@@ -15,7 +15,6 @@ app.service('RoomViewCtrl', function (Session, FbChatService, FbGamesService) {
 
     function _notFirstTeamProposalOfQuest () {
         return $scope.game.currentGamePhase === 'team building' &&
-            $scope.game.currentQuestIdx !== 0 &&
             $scope.game.currentVoteTrack !== 0;
     }
 
@@ -103,7 +102,7 @@ app.service('RoomViewCtrl', function (Session, FbChatService, FbGamesService) {
         if ($scope.game.waitingToPlay) return player.picture;
         if (player.onQuest && _phaseIs('team voting')) return '/img/sigil.png';
         if (player.approvedQuest && (_phaseIs('quest voting') || _notFirstTeamProposalOfQuest())) return '/img/approve.png';
-        if (!player.approvedQuest && _phaseIs('quest voting') || _notFirstTeamProposalOfQuest()) return '/img/reject.png';
+        if (!player.approvedQuest && (_phaseIs('quest voting') || _notFirstTeamProposalOfQuest())) return '/img/reject.png';
         if ($scope.game.useLady && $scope.game.currentLadyOfTheLake._id === player._id && !_phaseIs('end')) return '/img/lady_of_the_lake.png';
         if ($scope.me(player) ||
             (_phaseIs('end')) ||
