@@ -9778,6 +9778,19 @@ a.button {
 ion-modal-view p {
   text-align: center; }
 
+ion-modal-view ul {
+  list-style-type: none; }
+
+ion-modal-view h5 {
+  text-align: center;
+  display: inline-block; }
+
+ion-modal-view .small {
+  border-radius: 50%;
+  display: inline-block;
+  height: 28px;
+  width: 28px; }
+
 player {
   float: left; }
   player h5 {

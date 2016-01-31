@@ -53,6 +53,7 @@
         <a
             class="button button-block button-assertive"
             ng-click="failQuest()"
+            ng-disabled="user.loyalty==='good'"
             ng-if="(game.currentGamePhase === 'quest voting') && user.onQuest && user.needToVoteOnQuest">
             Fail
         </a>

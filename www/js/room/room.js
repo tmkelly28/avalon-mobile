@@ -32,6 +32,7 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Room
     $scope.myTurn = false;
     $scope.players = players;
     $scope.selected = [];
+    $scope.turnOrder = null;
     $scope.user = user;
     $scope.userRecord = userRecord;
 

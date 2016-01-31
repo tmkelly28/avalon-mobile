@@ -1,53 +1,105 @@
 <ion-modal-view>
     <ion-content class="padding">
         <img ng-src="{{user.imageUrl}}" class="card character" />
-        <p ng-if="user.character==='Servant of Arthur'" class="muted">
-            For years, you have served as a loyal servant of Arthur.
-            Camelot is in peril, and the fate of the kingdom rests on the success of the quests ahead of you.
-            However, lately there are rumours of treachery in the ranks of the knights.
-            With the help of Merlin, you must out the traitors and restore peace to the realm.
-        </p>
-        <p ng-if="user.character==='Minion of Mordred'" class="muted">
-            "You will fall into the ranks of Arthur's knights," Mordred hisses.
-            "Stir confusion and chaos amongst them. Make it such that they become suspicious of even their most trusted friends."
-            You grin - when Arthur's rule is overthrown, Mordred has promised you great wealth and a place amongst his knights.
-        </p>
-        <p ng-if="user.character==='Merlin'" class="muted">
-            Ageless and possessing unbounded wisdom, you have aided Arthur and his knights from the shadows.
-            However, your ancient nemesis Mordred has returned.
-            Though the lies of his traitorous minions are as clear as a cloudless sky to you, you must not compromise your disguise.
-            While safely hidden for now, if Mordred's forces uncover your identity, all of your work will be lost.
 
-        </p>
-        <p ng-if="user.character==='Percival'" class="muted">
-            You are one of Arthur's most trusted knights, gifted with a sixth sense for the supernatural.
-            You aid Merlin, who moves about the knights in a disguise that only you can decipher.
-            But what's this? Another presence begins to obscure your perception.
-            You must see the truth beyond the forces shrouding your view for the knights to succeed.
-        </p>
-        <p ng-if="user.character==='Mordred'" class="muted">
-            Camelot was once wild and rife with fearsome creatures and dark magicks of your own design.
-            Then your enemy, Merlin, arrived and sought to push the land away from its true state of darkness, and impose his own unnatural order.
-            However, now you are stronger than ever, and not even Merlin's second sight can stop you now.
-            You will have your revenge, and Camelot will once again be yours.
-        </p>
-        <p ng-if="user.character==='Morgana'" class="muted">
-            So this is the kingdom where the great wizard Merlin resides?
-            You laugh - what pitiful, frail magick this place depends upon!
-            You begin to cast a spell of your own - it is time to show the world the true meaning of sorcery.
-            The era of Merlin has come to an end - now it will be your will that spins the thread of Camelot's fate.
-        </p>
-        <p ng-if="user.character==='Oberon'" class="muted">
-            A spirit of deepest, darkest forest - you have watched the humans encroach upon your domain again and again.
-            They cut down your trees and drive the other creatures away. You have had enough.
-            As an agent of Chaos, you draw closer and closer to their civilization, casting the magicks of demonkind.
-            Soon, they will regret coming to this land - you will make them pay.
-        </p>
-        <p ng-if="user.character==='Assassin'" class="muted">
-            Your lord Mordred hands you the twisted dagger, engraved with ancient runes that seem to whisper secrets to you as you clutch the handle.
-            "My most trusted servant - to you, I bestow the greatest honor. Merlin hides like a coward amongst Arthur's knights.
-            This dagger is his bane. When you find him, plunge it into his heart, and Camelot will once again be ours!"
-        </p>
+        <div ng-if="user.character==='Servant of Arthur'" class="muted">
+            <p>
+                For years, you have served as a loyal servant of Arthur.
+                However, lately there are rumours of treachery in the ranks of the knights...
+            </p>
+        </div>
+
+        <div ng-if="user.character==='Minion of Mordred'" class="muted">
+            <p>
+                A callous minion of Mordred, your goal is to sow confusion and mistrust amongst the knights of Arthur...
+                <br /><br />
+                Your fellow agents of evil:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.loyalty==='evil') && (player.loyalty==='evil') && (player.character !=='Oberon') && (user._id !== player._id)">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+        </div>
+
+        <div ng-if="user.character==='Merlin'" class="muted">
+            <p>
+                Ageless and possessing unbounded wisdom - if your identity is compromised, all hope for Camelot is lost...
+                <br /><br />
+                You see through the disguises of Mordred's minions:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.character==='Merlin') && (player.loyalty==='evil') && (player.character !=='Mordred')">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+
+        </div>
+
+        <div ng-if="user.character==='Percival'" class="muted">
+            <p>
+                One of Arthur's most trusted knights, gifted with a sixth sense for the mystical...
+                <br /><br />
+                You sense the arcane disguises of the wizards:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.character==='Percival') && (player.character==='Morgana' || player.character==='Merlin')">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+        </div>
+
+        <div ng-if="user.character==='Mordred'" class="muted">
+            <p>
+                Ancient nemesis of Merlin, seeking to plunge Camelot into a new age of darkness...
+                <br /><br />
+                Your loyal minions:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.loyalty==='evil') && (player.loyalty==='evil') && (player.character !=='Oberon') && (user._id !== player._id)">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+        </div>
+
+        <div ng-if="user.character==='Morgana'" class="muted">
+            <p>
+                A proud sorceress from a distant land, and would-be rival to Merlin...
+                <br /><br />
+                Your fellow agents of evil:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.loyalty==='evil') && (player.loyalty==='evil') && (player.character !=='Oberon') && (user._id !== player._id)">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+        </div>
+
+        <div ng-if="user.character==='Oberon'" class="muted">
+            <p>
+                A chaotic spirit from the deepest forest, enemy to the encroaching humans of Camelot...
+            </p>
+        </div>
+
+        <div ng-if="user.character==='Assassin'" class="muted">
+            <p>
+                Mordred's most feared assassin, bearing the dagger of Merlin's bane...
+                <br /><br />
+                Your fellow agents of evil:
+            </p>
+            <div class="list">
+                <a class="item item-avatar" ng-repeat="player in game.players" ng-if="(user.loyalty==='evil') && (player.loyalty==='evil') && (player.character !=='Oberon') && (user._id !== player._id)">
+                    <img class="small" ng-src="{{ player.picture }}" />
+                    {{ player.displayName }}
+                </a>
+            </div>
+        </div>
+
         <button class="button button-block button-light" ng-click="closeGameStartModal()">Close</button>
     </ion-content>
 </ion-modal-view>

@@ -57,6 +57,22 @@ ion-modal-view {
     p {
         text-align: center;
     }
+
+    ul {
+        list-style-type: none;
+    }
+
+    h5 {
+        text-align: center;
+        display: inline-block;
+    }
+
+    .small {
+        border-radius: 50%;
+        display: inline-block;
+        height: 28px;
+        width: 28px;
+    }
 }
 
 player {

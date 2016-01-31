@@ -13,6 +13,7 @@ app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $i
         const playerNeedToVoteForTeamRef = gameRef.child('players/' + user.playerKey + '/needToVoteForTeam');
         const playerNeedToVoteOnQuestRef = gameRef.child('players/' + user.playerKey + '/needToVoteOnQuest');
         const waitingToPlayRef = gameRef.child('waitingToPlay');
+        const turnOrderRef = gameRef.child('turnOrder');
 		const currentQuestPlayersGoingRef = gameRef.child('currentQuestPlayersGoing');
 		const currentPlayerTurnRef = gameRef.child('currentPlayerTurn');
 		const currentGamePhaseRef = gameRef.child('currentGamePhase');
@@ -64,6 +65,10 @@ app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $i
                         scope.gameStartModal.show();
                     });
             }
+        });
+
+        turnOrderRef.on('value', snap => {
+            if (snap.val()) scope.turnOrder = snap.val();
         });
 
 		// update voting buttons
