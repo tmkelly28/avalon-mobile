@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FbListeners', function (FbGamesService, Session, UserService, $ionicModal) {
+app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $ionicModal) {
 
 	this.registerListeners = function (game, user, scope) {
 

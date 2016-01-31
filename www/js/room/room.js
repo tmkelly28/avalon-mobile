@@ -22,7 +22,7 @@ app.config($stateProvider => {
 	});
 });
 
-app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Session, FbChatService, FbGamesService, FbListeners) => {
+app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Session, FbChatService, FbGamesService, FirebaseEvents) => {
 
     function _remove (playerArray, player) {
         let idx = _.findIndex(playerArray, { _id: player._id });
@@ -49,7 +49,7 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
     $scope.selected = [];
     $scope.gameStartModal = $scope.ladyModal = $scope.questResultModal = null;
 
-    FbListeners.registerListeners($scope.game, $scope.userRecord, $scope);
+    FirebaseEvents.registerListeners($scope.game, $scope.userRecord, $scope);
 
     $scope.closeGameStartModal = () => $scope.gameStartModal.hide().then(() => $scope.gameStartModal.remove());
     $scope.closeLadyModal = () => $scope.ladyModal.hide().then(() => $scope.ladyModal.remove());
