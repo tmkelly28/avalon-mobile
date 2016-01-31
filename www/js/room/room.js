@@ -3,6 +3,7 @@
 app.config($stateProvider => {
 
 	$stateProvider.state('room', {
+        cache: false,
 		url: '/room/:key',
 		templateUrl: 'js/room/room.html',
 		controller: 'RoomCtrl',
