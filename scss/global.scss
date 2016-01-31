@@ -10,6 +10,15 @@
     width: 128px;
 }
 
+.block {
+    display: block;
+}
+
+.center-block {
+    text-align: center;
+    display: block;
+}
+
 .mt43 {
     margin-top: 43px;
 }
@@ -35,7 +44,7 @@
 }
 
 .highlighted {
-    color: blue;
+    color: #AFCBFB;
 }
 
 ion-modal-view {

@@ -1,2 +1,2 @@
-<h5>{{ player.displayName }}</h5>
+<h5 ng-class="{ highlighted: player._id === game.currentPlayerTurn._id }">{{ player.displayName }}</h5>
 <img ng-src="{{revealPicture(player)}}" ng-click="select(player)" ng-class="{selected: isSelected(player)}" />

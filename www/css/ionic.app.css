@@ -9741,6 +9741,13 @@ a.button {
   margin: 1em auto;
   width: 128px; }
 
+.block {
+  display: block; }
+
+.center-block {
+  text-align: center;
+  display: block; }
+
 .mt43 {
   margin-top: 43px; }
 
@@ -9761,7 +9768,7 @@ a.button {
   width: 91px; }
 
 .highlighted {
-  color: blue; }
+  color: #AFCBFB; }
 
 ion-modal-view p {
   text-align: center; }

@@ -1,5 +1,29 @@
-<div id="buttons">
+<div class="block">
     <form>
+        <div class="muted center-block"
+            ng-if="game.currentGamePhase === 'team building' && !myTurn">
+            <ion-spinner></ion-spinner>  Wating for {{ game.currentPlayerTurn.displayName }} to propose a team...
+        </div>
+        <div class="muted center-block"
+            ng-if="game.currentGamePhase === 'team voting' && !user.needToVoteForTeam">
+            <ion-spinner></ion-spinner>
+            Wating for other players to vote: {{ game.currentQuestApproves + game.currentQuestRejects }}/{{ game.size }}
+        </div>
+        <div class="muted center-block"
+            ng-if="game.currentGamePhase === 'quest voting' && !user.needToVoteForTeam">
+            <ion-spinner></ion-spinner>
+            Wating for other players to finish quest: {{ game.currentQuestSuccess + game.currentQuestFail }}/{{ game.currentQuestPlayersNeeded }}
+        </div>
+        <div class="muted center-block"
+            ng-if="game.currentGamePhase === 'using lady' && user._id !== game.currentLadyOfTheLake._id">
+            <ion-spinner></ion-spinner>
+            Waiting for Lady of the Lake...
+        </div>
+        <div class="muted center-block"
+            ng-if="game.currentGamePhase === 'guess Merlin' && user.character !== 'Assassin'">
+            <ion-spinner></ion-spinner>
+            Waiting for the Assassin to guess Merlin...
+        </div>
         <button
             class="button button-block button-positive"
             ng-disabled="!ableToBegin()"

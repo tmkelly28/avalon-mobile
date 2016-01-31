@@ -33,6 +33,10 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
         return _.findIndex(playerArray, { _id: player._id }) > -1;
     }
 
+    function _notFirstTeamProposalOfQuest () {
+        return game.currentGamePhase === 'team building' && game.currentQuestIdx !== 0 && game.currentVoteTrack !== 0;
+    }
+
 	const addToTeam = (player) => FbGamesService.addToTeam($scope.game.$id, player);
 
     $scope.game = game;
@@ -44,8 +48,6 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
     $scope.investigatedPlayer = null;
     $scope.selected = [];
     $scope.gameStartModal = $scope.ladyModal = $scope.questResultModal = null;
-
-    window.tmkScope = $scope;
 
     FbListeners.registerListeners($scope.game, $scope.userRecord, $scope);
 
@@ -99,7 +101,6 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
 	$scope.useLady = () => {
         let _player = $scope.selected[0];
         $scope.selected = [];
-		// this won't persist after refresh
 		$scope.investigatedPlayer = {
 			loyalty: _player.loyalty,
 			displayName: _player.displayName
@@ -111,8 +112,8 @@ app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, Sess
     $scope.revealPicture = (player) => {
         if ($scope.game.waitingToPlay) return player.picture;
         if (player.onQuest && $scope.game.currentGamePhase === 'team voting') return '/img/sigil.png';
-        if (player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/approve.png';
-        if (!player.approvedQuest && $scope.game.currentGamePhase === 'quest voting') return '/img/reject.png';
+        if (player.approvedQuest && ($scope.game.currentGamePhase === 'quest voting' || _notFirstTeamProposalOfQuest())) return '/img/approve.png';
+        if (!player.approvedQuest && $scope.game.currentGamePhase === 'quest voting' || _notFirstTeamProposalOfQuest()) return '/img/reject.png';
         if (game.useLady && game.currentLadyOfTheLake._id === player._id && $scope.game.currentGamePhase.slice(0, 3) !== 'end') return '/img/lady_of_the_lake.png';
         if ($scope.me(player) ||
             ($scope.game.currentGamePhase.slice(0, 3) === 'end') ||

@@ -65,6 +65,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 			quests: quests,
 			loyalScore: 0,
 			evilScore: 0,
+            size: turnOrder.length,
 			currentPlayerTurn: turnOrder[0],
 			currentLadyOfTheLake: lady,
 			currentGamePhase: 'team building',
