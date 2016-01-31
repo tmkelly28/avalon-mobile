@@ -1,9 +1,9 @@
 <ion-view view-title="New Game">
-    <ion-content class="padded">
+    <ion-content class="padding">
         <div class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Room Name</span>
-                <input name='roomName' type='text' ng-model='newGame.name' placeholder='Enter a room name'/>
+                <input name='roomName' type='text' ng-model='newGame.name' placeholder='Enter a room name' required/>
             </label>
             <div class="item range range-positive muted">
                 # Players:
@@ -19,6 +19,9 @@
 
         <button class='button button-block button-positive' ng-click="createNewGame()">
             Create Room
+        </button>
+        <button class="button button-block button-assertive" ng-if="error">
+            Please include a title for this room
         </button>
         <button class="button button-block button-energized" ng-if="newGame.lady && newGame.numberOfPlayers < 7">
             Recommended: at least seven players

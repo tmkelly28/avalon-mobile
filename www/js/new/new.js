@@ -3,6 +3,7 @@
 app.config($stateProvider => {
 
     $stateProvider.state('new', {
+        cache: false,
         url: '/lobby/:uid/new',
         templateUrl: 'js/new/new.html',
         controller: 'NewCtrl',
@@ -20,6 +21,7 @@ app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
 
     $scope.user = user;
     $scope.games = games;
+    $scope.error = false;
     $scope.newGame = {
         numberOfPlayers: 5,
         lady: false,
@@ -30,6 +32,8 @@ app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
     };
 
     $scope.createNewGame = () => {
+        if (!$scope.newGame.name) return $scope.error = true;
+
         let key = FbGamesService.pushNewGame({
             host: $scope.user._id,
             hostName: $scope.user.displayName,
