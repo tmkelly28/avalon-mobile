@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('RoomViewCtrl', function (Session, FbChatService, FbGamesService) {
+app.service('RoomViewService', function (Session, FbChatService, FbGamesService) {
 
     let $scope;
 
@@ -44,7 +44,10 @@ app.service('RoomViewCtrl', function (Session, FbChatService, FbGamesService) {
             .hide()
             .then(() => $scope.questResultModal.remove());
     };
-    this.addMessage = (message) => message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
+    this.addMessage = (message) => {
+        message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
+        message.text = '';
+    };
     this.isHost = () => Session.user._id === $scope.game.host;
     this.ableToBegin = () => Object.keys($scope.game.players).length >= $scope.game.targetSize && Object.keys($scope.game.players).length < 11;
     this.startGame = () => FbGamesService.startGame($scope.game);

@@ -60,14 +60,14 @@
 
         <ion-tab title="Chat" icon-on="ion-ios-chatboxes" icon-off="ion-ios-chatboxes-outline">
         <!-- Chat Content -->
-            <ion-content class="padding mt43">
+            <ion-content class="padding has-footer has-header">
                 <chats></chats>
             </ion-content>
             <ion-footer-bar class="bar-subfooter">
                 <div class="list">
                     <div class="item item-input-inset">
                         <label class="item-input-wrapper">
-                            <input type="text" ng-model="message.text" placeholder="Enter your message">
+                            <input type="text" ng-model="message.text" placeholder="Enter your message" />
                         </label>
                         <button class="button button-small button-positive" ng-click="addMessage(message)">
                             Submit
