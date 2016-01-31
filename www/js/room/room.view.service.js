@@ -53,7 +53,7 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
     this.startGame = () => FbGamesService.startGame($scope.game);
     this.me = (player) => player._id === $scope.user._id;
     this.proposeTeam = () => {
-        return Promise.all($scope.selected.map(playerId => _addToTeam(playerId)))
+        return Promise.all($scope.selected.map(_player => _addToTeam(_player)))
             .then(() => {
                 $scope.selected = [];
                 FbGamesService.proposeTeam($scope.game.$id);

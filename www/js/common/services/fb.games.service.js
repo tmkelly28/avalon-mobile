@@ -116,6 +116,8 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 	};
 
 	service.addToTeam = function (id, player) {
+        if (player.$$hashKey) delete player.$$hashKey;
+
 		let teamRef = gamesRef.child(id + '/currentQuestPlayersGoing');
 		let newTeamMemberRef = teamRef.push();
 		newTeamMemberRef.set(player);

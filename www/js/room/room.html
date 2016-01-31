@@ -3,12 +3,20 @@
 
         <ion-tab title="Table" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline">
         <!-- Table Content -->
-            <ion-content class="padding mt43">
+            <ion-content class="padding has-footer has-header">
                 <div ng-repeat="player in game.players | byTurnOrder:turnOrder">
                     <player></player>
                 </div>
                 <buttons></buttons>
             </ion-content>
+            <ion-footer-bar class="bar-subfooter">
+                <div class="list">
+                    <a class="item">
+                        Vote Track
+                        <span class="badge badge-assertive">{{ game.currentVoteTrack }}</span>
+                    </a>
+                </div>
+            </ion-footer-bar>
         </ion-tab>
 
         <ion-tab title="Knowledge" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
