@@ -9731,6 +9731,11 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.app-title {
+  letter-spacing: 0.7em;
+  margin-top: 20% !important;
+  text-align: center; }
+
 .muted {
   color: gray; }
 
@@ -9774,8 +9779,7 @@ ion-modal-view p {
   text-align: center; }
 
 player {
-  float: left;
-  a-position: relative; }
+  float: left; }
   player h5 {
     padding: 0;
     text-align: center; }
@@ -9784,8 +9788,3 @@ player {
     margin: 0 1em;
     height: 58px;
     width: 58px; }
-
-.app-title {
-  letter-spacing: 0.7em;
-  margin-top: 20% !important;
-  text-align: center; }

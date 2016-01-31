@@ -1,3 +1,9 @@
+.app-title {
+    letter-spacing: 0.7em;
+    margin-top: 20% !important;
+    text-align: center;
+}
+
 .muted {
     color: gray;
 }
@@ -68,22 +74,4 @@ player {
         height: 58px;
         width: 58px;
     }
-
-    a: {
-        position: relative;
-    }
-
-    // .card {
-    //     height: 40px;
-    //     width: 22px;
-    // }
-
-    // .character {
-    //     left: 0px;
-    // }
-
-    // .game-piece {
-    //     border-radius: 10%;
-    //     position: relative;
-    // }
 }

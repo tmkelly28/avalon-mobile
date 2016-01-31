@@ -111,6 +111,6 @@ app.service('RoomViewCtrl', function (Session, FbChatService, FbGamesService) {
                 player.loyalty === 'evil' &&
                 player.character !== 'Oberon')) return player.imageUrl;
         return player.picture;
-    }
+    };
 
 });

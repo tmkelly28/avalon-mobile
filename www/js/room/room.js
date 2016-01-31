@@ -25,41 +25,41 @@ app.config($stateProvider => {
 
 app.controller('RoomCtrl', ($scope, game, chats, user, players, userRecord, RoomViewCtrl, FirebaseEvents) => {
 
-    $scope.game = game;
     $scope.chats = chats;
+    $scope.game = game;
+    $scope.gameStartModal = $scope.ladyModal = $scope.questResultModal = null;
+    $scope.investigatedPlayer = null;
+    $scope.myTurn = false;
+    $scope.players = players;
+    $scope.selected = [];
     $scope.user = user;
     $scope.userRecord = userRecord;
-    $scope.players = players;
-    $scope.myTurn = false;
-    $scope.investigatedPlayer = null;
-    $scope.selected = [];
-    $scope.gameStartModal = $scope.ladyModal = $scope.questResultModal = null;
 
     FirebaseEvents.registerListeners($scope.game, $scope.userRecord, $scope);
     RoomViewCtrl.registerScope($scope);
 
+    $scope.ableToBegin = RoomViewCtrl.ableToBegin;
+    $scope.addMessage = RoomViewCtrl.addMessage;
     $scope.closeGameStartModal = RoomViewCtrl.closeGameStartModal;
     $scope.closeLadyModal = RoomViewCtrl.closeLadyModal;
     $scope.closeQuestResultModal = RoomViewCtrl.closeQuestResultModal;
-    $scope.addMessage = RoomViewCtrl.addMessage;
-    $scope.isHost = RoomViewCtrl.isHost;
-    $scope.ableToBegin = RoomViewCtrl.ableToBegin;
-    $scope.startGame = RoomViewCtrl.startGame;
-    $scope.me = RoomViewCtrl.me;
-	$scope.proposeTeam = RoomViewCtrl.proposeTeam;
-	$scope.disablePropose = RoomViewCtrl.disablePropose;
-    $scope.resetTeam = RoomViewCtrl.resetTeam;
-    $scope.voteApprove = RoomViewCtrl.voteApprove;
-    $scope.voteReject = RoomViewCtrl.voteReject;
-    $scope.successQuest = RoomViewCtrl.successQuest;
+    $scope.disableGuessMerlin = RoomViewCtrl.disableGuessMerlin;
+    $scope.disableLady = RoomViewCtrl.disableLady;
+    $scope.disablePropose = RoomViewCtrl.disablePropose;
     $scope.failQuest = RoomViewCtrl.failQuest;
     $scope.guessMerlin = RoomViewCtrl.guessMerlin;
-	$scope.range = RoomViewCtrl.range;
-    $scope.disableLady = RoomViewCtrl.disableLady;
-    $scope.disableGuessMerlin = RoomViewCtrl.disableGuessMerlin;
-	$scope.useLady = RoomViewCtrl.useLady;
+    $scope.isHost = RoomViewCtrl.isHost;
     $scope.isSelected = RoomViewCtrl.isSelected;
-    $scope.select = RoomViewCtrl.select;
+    $scope.me = RoomViewCtrl.me;
+    $scope.proposeTeam = RoomViewCtrl.proposeTeam;
+    $scope.range = RoomViewCtrl.range;
+    $scope.resetTeam = RoomViewCtrl.resetTeam;
     $scope.revealPicture = RoomViewCtrl.revealPicture;
+    $scope.select = RoomViewCtrl.select;
+    $scope.startGame = RoomViewCtrl.startGame;
+    $scope.successQuest = RoomViewCtrl.successQuest;
+    $scope.useLady = RoomViewCtrl.useLady;
+    $scope.voteApprove = RoomViewCtrl.voteApprove;
+    $scope.voteReject = RoomViewCtrl.voteReject;
 
 });
