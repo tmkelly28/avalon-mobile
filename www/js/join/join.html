@@ -10,10 +10,10 @@
         <button class="button button-assertive button-block" ng-if="(numberOfPlayers() === 10)">
             Room is full - maximum number of players is 10
         </button>
-        <button class="button button-energized button-block" ng-if="alreadyJoined()">
-                You have already joined this game
+        <button class="button button-energized button-block" ng-click="joinGame()" ng-if="alreadyJoined()">
+                Already joined - click to rejoin.
         </button>
-        <button class="button button-positive button-block" ng-click="joinGame()" ng-disabled="(numberOfPlayers() === 10)">
+        <button class="button button-positive button-block" ng-click="joinGame()" ng-disabled="(numberOfPlayers() === 10 || alreadyJoined())">
             Join
         </button>
     </ion-content>
