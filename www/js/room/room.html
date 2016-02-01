@@ -10,7 +10,7 @@
                 <buttons></buttons>
             </ion-content>
             <ion-footer-bar class="bar-subfooter">
-                <div class="list">
+                <div class="list" ng-if="!game.waitingToPlay">
                     <a class="item">
                         Vote Track
                         <span class="badge badge-calm" ng-if="game.currentVoteTrack < 3">{{ game.currentVoteTrack }}</span>
