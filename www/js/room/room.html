@@ -1,4 +1,7 @@
 <ion-view view-title="{{ game.name }}">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-positive" ui-sref="lobby({ uid: user._id })">Lobby</button>
+    </ion-nav-buttons>
     <ion-tabs class="tabs-light tabs-icon-top">
 
         <ion-tab title="Table" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline">

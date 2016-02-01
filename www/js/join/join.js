@@ -17,7 +17,7 @@ app.config($stateProvider => {
     });
 });
 
-app.controller('JoinCtrl', ($scope, $state, game, user, FbGamesService) => {
+app.controller('JoinCtrl', ($scope, $state, $timeout, game, user, FbGamesService) => {
 
     let gate = false;
 
@@ -28,9 +28,10 @@ app.controller('JoinCtrl', ($scope, $state, game, user, FbGamesService) => {
         if (gate) return;
 
         if (!$scope.alreadyJoined()) {
+            gate = true;
+            $timeout(() => gate = false, 1000);
             FbGamesService.addPlayerToGame($scope.game.$id, $scope.user)
                 .then(() => {
-                    gate = true;
                     $state.go('room', { key: $scope.game.$id });
                 });
         } else $state.go('room', { key: $scope.game.$id });

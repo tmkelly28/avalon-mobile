@@ -3,6 +3,7 @@
 app.config($stateProvider => {
 
 	$stateProvider.state('lobby', {
+        cache: false,
 		url: '/lobby/:uid',
 		templateUrl: '/js/lobby/lobby.html',
 		controller: 'LobbyCtrl',

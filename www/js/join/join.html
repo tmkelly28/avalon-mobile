@@ -13,7 +13,7 @@
         <button class="button button-energized button-block" ng-click="joinGame()" ng-if="alreadyJoined()">
                 Already joined - click to rejoin.
         </button>
-        <button class="button button-positive button-block" ng-click="joinGame()" ng-disabled="(numberOfPlayers() === 10 || alreadyJoined())">
+        <button class="button button-positive button-block" ng-click="joinGame()" ng-disabled="(numberOfPlayers() >= 10 || alreadyJoined())">
             Join
         </button>
     </ion-content>
