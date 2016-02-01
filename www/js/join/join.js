@@ -3,6 +3,7 @@
 app.config($stateProvider => {
 
     $stateProvider.state('join', {
+        cache: false,
         url: '/lobby/:uid/join/:gid',
         templateUrl: 'js/join/join.html',
         controller: 'JoinCtrl',
