@@ -32,4 +32,6 @@ app.controller('LobbyCtrl', ($scope, $state, user, games) => {
 	}
 
 	$scope.numberOfPlayers = (game) => game.players ? Object.keys(game.players).length : 1;
+    $scope.isMyGame = (game) => Object.keys(game.players).includes($scope.user.playerKey);
+
 });

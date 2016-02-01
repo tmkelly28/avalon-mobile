@@ -19,18 +19,21 @@ app.config($stateProvider => {
 
 app.controller('JoinCtrl', ($scope, $state, game, user, FbGamesService) => {
 
+    let gate = false;
+
     $scope.game = game;
     $scope.user = user;
 
     $scope.joinGame = () => {
+        if (gate) return;
+
         if (!$scope.alreadyJoined()) {
             FbGamesService.addPlayerToGame($scope.game.$id, $scope.user)
-            .then(() => {
-                $state.go('room', { key: $scope.game.$id });
-            });
-        } else {
-            $state.go('room', { key: $scope.game.$id });
-        }
+                .then(() => {
+                    gate = true;
+                    $state.go('room', { key: $scope.game.$id });
+                });
+        } else $state.go('room', { key: $scope.game.$id });
     }
 
     $scope.alreadyJoined = () => Object.keys($scope.game.players).includes($scope.user.playerKey);

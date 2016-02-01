@@ -9,13 +9,24 @@
         <a ui-sref="user({ uid: user._id })" class="button button-block button-calm" data-ignore="push">Your User Stats</a>
 
         <div class="list">
-            <a class="item" ui-sref="join({ uid: user._id, gid: game.$id })" ng-repeat='game in games | filter : { waitingToPlay: true }'>
-                <h2>{{ game.name }}</h2>
-                <p> Host: {{ game.hostName }} <br />
-                    Players: {{ numberOfPlayers(game) }} / {{ game.targetSize }} <br />
-                    {{ specialRules(game) }} <br />
-                </p>
-            </a>
+
+            <div class="item item-divider">New Games</div>
+                <a class="item" ui-sref="join({ uid: user._id, gid: game.$id })" ng-repeat='game in games | filter : { waitingToPlay: true }'>
+                    <h2>{{ game.name }}</h2>
+                    <p> Host: {{ game.hostName }} <br />
+                        Players: {{ numberOfPlayers(game) }} / {{ game.targetSize }} <br />
+                        {{ specialRules(game) }} <br />
+                    </p>
+                </a>
+
+            <div class="item item-divider">Your Current/Past Games</div>
+                <a class="item" ui-sref="join({ uid: user._id, gid: game.$id })" ng-repeat='game in games | filter : isMyGame'>
+                    <h2>{{ game.name }}</h2>
+                    <p> Host: {{ game.hostName }} <br />
+                        Players: {{ numberOfPlayers(game) }} / {{ game.targetSize }} <br />
+                        {{ specialRules(game) }} <br />
+                    </p>
+                </a>
         </div>
 
     </ion-content>
