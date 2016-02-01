@@ -8,12 +8,12 @@
         <div class="muted center-block"
             ng-if="game.currentGamePhase === 'team voting' && !user.needToVoteForTeam">
             <ion-spinner></ion-spinner>
-            Wating for other players to vote: {{ game.currentQuestApproves + game.currentQuestRejects }}/{{ game.size }}
+            Waiting for other players to vote: {{ game.currentQuestApproves + game.currentQuestRejects }}/{{ game.size }}
         </div>
         <div class="muted center-block"
             ng-if="game.currentGamePhase === 'quest voting' && !user.needToVoteForTeam">
             <ion-spinner></ion-spinner>
-            Wating for other players to finish quest: {{ game.currentQuestSuccess + game.currentQuestFail }}/{{ game.currentQuestPlayersNeeded }}
+            Waiting for other players to finish quest: {{ game.currentQuestSuccess + game.currentQuestFail }}/{{ game.currentQuestPlayersNeeded }}
         </div>
         <div class="muted center-block"
             ng-if="game.currentGamePhase === 'using lady' && user._id !== game.currentLadyOfTheLake._id">
