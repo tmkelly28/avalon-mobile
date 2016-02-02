@@ -44,7 +44,8 @@ app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
             usePercival: $scope.newGame.percival,
             useMorgana: $scope.newGame.morgana,
             useOberon: $scope.newGame.oberon,
-            useLady: $scope.newGame.lady
+            useLady: $scope.newGame.lady,
+            gameOver: false
         });
 
         FbGamesService.addPlayerToGame(key, $scope.user)

@@ -17,7 +17,7 @@ app.config($stateProvider => {
 	});
 });
 
-app.controller('LobbyCtrl', ($scope, $state, user, games) => {
+app.controller('LobbyCtrl', ($scope, $state, user, games, FbGamesService) => {
 
 	$scope.user = user;
 	$scope.games = games;
@@ -33,6 +33,10 @@ app.controller('LobbyCtrl', ($scope, $state, user, games) => {
 	}
 
 	$scope.numberOfPlayers = (game) => game.players ? Object.keys(game.players).length : 1;
-    $scope.isMyGame = (game) => Object.keys(game.players).includes($scope.user.playerKey);
+    $scope.isMyGame = (game) => Object.keys(game.players).includes($scope.user.playerKey) && !game.gameOver;
+    $scope.cancelGame = (event, game) => {
+        event.preventDefault();
+        FbGamesService.cancelGame(game.$id)
+    };
 
 });

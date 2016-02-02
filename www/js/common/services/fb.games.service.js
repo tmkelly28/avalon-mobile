@@ -46,6 +46,11 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 		return $firebaseObject(playersRef);
 	};
 
+    service.cancelGame = function (gameKey) {
+        let gameRef = gamesRef.child(gameKey);
+        gameRef.set(null);
+    }
+
 	service.startGame = function (game) {
 		let gameRef = gamesRef.child(game.$id);
 		let quests = GameFactory.assignQuests(game);
@@ -222,9 +227,9 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 
 	service.endGame = function (id, result) {
 		let gameRef = gamesRef.child(id);
-		if (result === 'evil') gameRef.update({ currentGamePhase: 'end evil wins' });
-		else if (result === 'merlinGuessed') gameRef.update({ currentGamePhase: 'end evil guessed merlin' });
-		else if (result === 'merlinNotGuessed') gameRef.update({ currentGamePhase: 'end good wins' });
+		if (result === 'evil') gameRef.update({ currentGamePhase: 'end evil wins', gameOver: true });
+		else if (result === 'merlinGuessed') gameRef.update({ currentGamePhase: 'end evil guessed merlin', gameOver: true });
+		else if (result === 'merlinNotGuessed') gameRef.update({ currentGamePhase: 'end good wins', gameOver: true });
 		else gameRef.update({ currentGamePhase: 'guess merlin' });
 	};
 

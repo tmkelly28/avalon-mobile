@@ -20,12 +20,15 @@
                 </a>
 
             <div class="item item-divider">Your Current/Past Games</div>
-                <a class="item" ui-sref="join({ uid: user._id, gid: game.$id })" ng-repeat='game in games | filter : isMyGame'>
+                <a class="item item-button-right" ui-sref="join({ uid: user._id, gid: game.$id })" ng-repeat='game in games | filter : isMyGame'>
                     <h2>{{ game.name }}</h2>
                     <p> Host: {{ game.hostName }} <br />
                         Players: {{ numberOfPlayers(game) }} / {{ game.targetSize }} <br />
                         {{ specialRules(game) }} <br />
                     </p>
+                    <button class="button button-energized" ng-click="cancelGame($event, game)" ng-if="user._id === game.host">
+                        Cancel
+                    </button>
                 </a>
         </div>
 
