@@ -107,11 +107,7 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
         if (player.approvedQuest && (_phaseIs('quest voting') || _notFirstTeamProposalOfQuest())) return '/img/approve.png';
         if (!player.approvedQuest && (_phaseIs('quest voting') || _notFirstTeamProposalOfQuest())) return '/img/reject.png';
         if ($scope.game.useLady && $scope.game.currentLadyOfTheLake._id === player._id && !_phaseIs('end')) return '/img/lady_of_the_lake.png';
-        if ($scope.me(player) ||
-            (_phaseIs('end')) ||
-            (_phaseIs('guess merlin') &&
-                player.loyalty === 'evil' &&
-                player.character !== 'Oberon')) return player.imageUrl;
+        if (_phaseIs('end') || ( _phaseIs('guess merlin') && player.loyalty === 'evil' && player.character !== 'Oberon') ) return player.imageUrl;
         return player.picture;
     };
 

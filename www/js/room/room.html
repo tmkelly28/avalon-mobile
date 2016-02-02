@@ -27,7 +27,11 @@
         <ion-tab title="Knowledge" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
         <!-- Knowledge Content -->
             <ion-content class="padding mt43">
+                <div class="item item-divider">Your Character</div>
                 <div class="list">
+                    <div class="item">
+                        <img ng-src="{{user.imageUrl}}" class="card character" />
+                    </div>
 
                     <div class="item item-divider">Knowledge About Other Players</div>
                     <a class="item" class="item item-icon-left" ng-if="investigatedPlayer">
