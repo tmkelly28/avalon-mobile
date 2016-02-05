@@ -28,6 +28,7 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 
 			UserService.update(player._id, { playerKey: key })
 			.then(updatedPlayer => {
+                if (updatedPlayer.$$hashKey) delete player.$$hashKey;
 				ref.set(updatedPlayer);
 				resolve(key);
 			})
@@ -242,6 +243,8 @@ app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFac
 	};
 
 	service.useLady = function (id, player, scope) {
+        if (player.$$hashKey) delete player.$$hashKey;
+
 		let gameRef = gamesRef.child(id);
 		let playerHasBeenLadyRef = gameRef.child('players/' + player.playerKey + '/hasBeenLadyOfTheLake');
 		playerHasBeenLadyRef.set(true);
