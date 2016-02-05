@@ -1,6 +1,9 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const Firebase = require('firebase');
+const GamesRef = new Firebase('https://resplendent-torch-2655.firebaseio.com/games/');
+const _ = require('lodash');
 
 const schema = new mongoose.Schema({
     currentGamePhase: {
@@ -45,18 +48,67 @@ const schema = new mongoose.Schema({
     },
     hostName: { type: String },
     loyalScore: { type: Number },
-    name: { type: String },
+    name: {
+        type: String,
+        required: true
+    },
+    players: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player'
+    }],
     previousQuestFail: { type: Number },
+    previousQuestSuccess: { type: Number },
+    quests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Quest'
+    }],
+    roomLeftOnTeam: { type: Boolean },
+    size: { type: Number },
+    targetSize: { type: Number },
     turnOrder: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Player'
     }],
-    usePercival: { type: Boolean },
-    useMorgana: { type: Boolean },
-    useOberon: { type: Boolean },
-    useMordred: { type: Boolean },
-    useLady: { type: Boolean },
-    waitingToPlay: { type: Boolean }
+    usePercival: {
+        type: Boolean,
+        default: false
+    },
+    useMorgana: {
+        type: Boolean,
+        default: false
+    },
+    useOberon: {
+        type: Boolean,
+        default: false
+    },
+    useMordred: {
+        type: Boolean,
+        default: false
+    },
+    useLady: {
+        type: Boolean,
+        default: false
+    },
+    waitingToPlay: {
+        type: Boolean,
+        default: true
+    },
+});
+
+schema.pre('save', function (next) {
+
+    // GamesRef.push();
+    // GamesRef.set(_.omit(this, [
+    //     '$__',
+    //     'isNew',
+    //     'errors',
+    //     '_doc',
+    //     '$__original_save',
+    //     'save',
+    //     '_pres',
+    //     '_posts'
+    // ]));
+    next();
 });
 
 mongoose.model('Game', schema);

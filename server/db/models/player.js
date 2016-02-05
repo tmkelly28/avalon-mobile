@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
     character: { type: String },
-    game: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game',
-        index: true
-    },
     displayName: { type: String },
     imageUrl: { type: String },
     knownToEvil: { type: Boolean },

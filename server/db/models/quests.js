@@ -3,11 +3,6 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    game: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Game',
-        index: true
-    },
     playersNeeded: { type: Number },
     questNumber: { type: Number },
     status: {
@@ -17,4 +12,4 @@ const schema = new mongoose.Schema({
     toFail: { type: Number }
 });
 
-mongoose.model('Game', schema);
+mongoose.model('Quest', schema);
