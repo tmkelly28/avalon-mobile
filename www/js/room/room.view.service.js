@@ -74,7 +74,7 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
         FbGamesService.guessMerlin($scope.game.$id, _player);
     };
     this.range = (n, m) => _.range(n, m);
-    this.disableLady = () => {
+    this.disableLady = (user) => {
         if ($scope.selected.length !== 1) return true;
         if ($scope.selected.length === 1) {
             let _player = $scope.selected[0];

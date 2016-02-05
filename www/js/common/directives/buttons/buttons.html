@@ -81,7 +81,7 @@
         <button
             class="button button-block button-calm"
             ng-click="useLady()"
-            ng-disabled="disableLady()"
+            ng-disabled="disableLady(user)"
             ng-if="(user._id === game.currentLadyOfTheLake._id) && (game.currentGamePhase === 'using lady')">
             Use Lady
         </button>
