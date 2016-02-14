@@ -12,12 +12,12 @@ app.config($stateProvider => {
         },
         resolve: {
             user: ($stateParams, UserService) => UserService.fetchById($stateParams.uid),
-            games: FbGamesService => FbGamesService.fetchAllGames()
+            games: GamesService => GamesService.fetchAllGames()
         }
     });
 });
 
-app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
+app.controller('NewCtrl', ($scope, $state, user, games, GamesService) => {
 
     $scope.user = user;
     $scope.games = games;
@@ -34,7 +34,7 @@ app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
     $scope.createNewGame = () => {
         if (!$scope.newGame.name) return $scope.error = true;
 
-        let key = FbGamesService.pushNewGame({
+        let key = GamesService.pushNewGame({
             host: $scope.user._id,
             hostName: $scope.user.displayName,
             waitingToPlay: true,
@@ -48,7 +48,7 @@ app.controller('NewCtrl', ($scope, $state, user, games, FbGamesService) => {
             gameOver: false
         });
 
-        FbGamesService.addPlayerToGame(key, $scope.user)
+        GamesService.addPlayerToGame(key, $scope.user)
             .then(() => $state.go('room', { key: key }));
     }
 });

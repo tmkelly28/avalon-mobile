@@ -12,12 +12,12 @@ app.config($stateProvider => {
 		},
 		resolve: {
 			user: ($stateParams, UserService) => UserService.fetchById($stateParams.uid),
-			games: (FbGamesService) => FbGamesService.fetchAllGames()
+			games: (GamesService) => GamesService.fetchAllGames()
 		}
 	});
 });
 
-app.controller('LobbyCtrl', ($scope, $state, user, games, FbGamesService) => {
+app.controller('LobbyCtrl', ($scope, $state, user, games, GamesService) => {
 
 	$scope.user = user;
 	$scope.games = games;
@@ -36,7 +36,7 @@ app.controller('LobbyCtrl', ($scope, $state, user, games, FbGamesService) => {
     $scope.isMyGame = (game) => game.players ? Object.keys(game.players).includes($scope.user.playerKey) && !game.gameOver : false;
     $scope.cancelGame = (event, game) => {
         event.preventDefault();
-        FbGamesService.cancelGame(game.$id);
+        GamesService.cancelGame(game.$id);
     };
 
 });

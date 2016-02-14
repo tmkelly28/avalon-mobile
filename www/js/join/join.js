@@ -11,13 +11,13 @@ app.config($stateProvider => {
             authenticate: true
         },
         resolve: {
-            game: ($stateParams, FbGamesService) => FbGamesService.fetchById($stateParams.gid),
+            game: ($stateParams, GamesService) => GamesService.fetchById($stateParams.gid),
             user: ($stateParams, UserService) => UserService.fetchById($stateParams.uid)
         }
     });
 });
 
-app.controller('JoinCtrl', ($scope, $state, $timeout, game, user, FbGamesService) => {
+app.controller('JoinCtrl', ($scope, $state, $timeout, game, user, GamesService) => {
 
     let gate = false;
 
@@ -30,7 +30,7 @@ app.controller('JoinCtrl', ($scope, $state, $timeout, game, user, FbGamesService
         if (!$scope.alreadyJoined()) {
             gate = true;
             $timeout(() => gate = false, 1000);
-            FbGamesService.addPlayerToGame($scope.game.$id, $scope.user)
+            GamesService.addPlayerToGame($scope.game.$id, $scope.user)
                 .then(() => {
                     $state.go('room', { key: $scope.game.$id });
                 });

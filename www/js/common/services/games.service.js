@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFactory, UserService, $ionicModal) {
+app.service('GamesService', function ($firebaseArray, $firebaseObject, GameFactory, UserService, $ionicModal) {
 
 	const gamesRef = new Firebase("https://resplendent-torch-2655.firebaseio.com/games");
 	const service = this;
