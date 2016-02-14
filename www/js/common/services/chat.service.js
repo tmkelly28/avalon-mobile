@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FbChatService', function ($firebaseArray) {
+app.service('ChatService', function ($firebaseArray) {
 
 	this.fetchById = function (id) {
 		let fb = new Firebase("https://resplendent-torch-2655.firebaseio.com/chat/" + id);

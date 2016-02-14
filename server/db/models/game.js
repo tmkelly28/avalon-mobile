@@ -1,9 +1,9 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const Firebase = require('firebase');
-const GamesRef = new Firebase('https://resplendent-torch-2655.firebaseio.com/games/');
-const _ = require('lodash');
+// const Firebase = require('firebase');
+// const GamesRef = new Firebase('https://resplendent-torch-2655.firebaseio.com/games/');
+// const _ = require('lodash');
 
 const schema = new mongoose.Schema({
     currentGamePhase: {
@@ -95,20 +95,16 @@ const schema = new mongoose.Schema({
     },
 });
 
-schema.pre('save', function (next) {
+// const populateFields = 'currentLadyOfTheLake currentPlayerTurn currentQuestPlayersGoing host players quests turnOrder';
 
-    // GamesRef.push();
-    // GamesRef.set(_.omit(this, [
-    //     '$__',
-    //     'isNew',
-    //     'errors',
-    //     '_doc',
-    //     '$__original_save',
-    //     'save',
-    //     '_pres',
-    //     '_posts'
-    // ]));
-    next();
-});
+// schema.pre('save', function (next) {
+
+//     Promise
+//     .resolve(this.populate(populateFields))
+//     .then(doc => {
+//         console.log(doc)
+//         next()
+//     })
+// });
 
 mongoose.model('Game', schema);

@@ -11,14 +11,14 @@ app.config($stateProvider => {
 			authenticate: true
 		},
 		resolve: {
-			game: ($stateParams, FbGamesService) => FbGamesService.fetchById($stateParams.key),
-			chats: ($stateParams, FbChatService) => FbChatService.fetchById($stateParams.key),
-			user: (UserService, Session, FbGamesService, $stateParams) => {
+			game: ($stateParams, GamesService) => GamesService.fetchById($stateParams.key),
+			chats: ($stateParams, ChatService) => ChatService.fetchById($stateParams.key),
+			user: (UserService, Session, GamesService, $stateParams) => {
 				return UserService.fetchById(Session.user._id)
-				    .then(user => FbGamesService.fetchPlayer($stateParams.key, user.playerKey));
+				    .then(user => GamesService.fetchPlayer($stateParams.key, user.playerKey));
 			},
 			userRecord: (UserService, Session) => UserService.fetchById(Session.user._id),
-			players: ($stateParams, FbGamesService) => FbGamesService.fetchPlayers($stateParams.key)
+			players: ($stateParams, GamesService) => GamesService.fetchPlayers($stateParams.key)
 		}
 	});
 });

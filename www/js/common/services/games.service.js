@@ -1,56 +1,42 @@
 'use strict';
 
-app.service('FbGamesService', function ($firebaseArray, $firebaseObject, GameFactory, UserService, $ionicModal) {
+app.service('GamesService', function ($http, $firebaseArray, $firebaseObject, GameFactory, UserService, $ionicModal) {
 
 	const gamesRef = new Firebase("https://resplendent-torch-2655.firebaseio.com/games");
 	const service = this;
 
-	service.fetchAllGames = function () {
-		return $firebaseArray(gamesRef);
-	};
+    function toData (res) { return res.data; }
+    function errorHandler (error) { console.error(error); }
 
-	service.fetchById = function (key) {
-		let gameRef = gamesRef.child(key);
-		return $firebaseObject(gameRef);
-	};
+    /* Basic fetching operations
+    *   Executed on the client
+    */
+	service.fetchAllGames = function () { return $firebaseArray(gamesRef); };
+	service.fetchById = function (key) { return $firebaseObject(gamesRef.child(key)); };
+	service.fetchPlayer = function (gameKey, playerKey) { return $firebaseObject(gamesRef.child(gameKey + "/players/" + playerKey)); };
+	service.fetchPlayers = function (gameKey) { return $firebaseObject(gamesRef.child(gameKey + "/players")); };
+    service.cancelGame = function (gameKey) { gamesRef.child(gameKey).set(null); }
 
-	service.pushNewGame = function (game) {
-		let ref = gamesRef.push();
-		ref.set(game);
-		return ref.key();
-	};
+    /* Game creation and game logic
+    *   Sent to the server for execution
+    */
+    service.pushNewGame = function (game, player) {
+        let key;
+        return $http.post('/api/games/', game)
+            .then(toData)
+            .then(_key => {
+                key = _key
+                return service.addPlayerToGame(_key, player)
+            })
+            .then(res => key)
+            .then(null, errorHandler);
+    };
 
-	service.addPlayerToGame = function (gameKey, player) {
-		let playersRef = gamesRef.child(gameKey + "/players");
-		return new Promise((resolve, reject) => {
-			let ref = playersRef.push();
-			let key = ref.key();
+    service.addPlayerToGame = function (gameKey, player) {
+        return $http.put(`/api/games/${gameKey}/add-player`, player)
+            .then(null, errorHandler);
+    };
 
-			UserService.update(player._id, { playerKey: key })
-			.then(updatedPlayer => {
-                if (updatedPlayer.$$hashKey) delete player.$$hashKey;
-				ref.set(updatedPlayer);
-				resolve(key);
-			})
-			.then(null, err => reject(err));
-		})
-		.then(null, err => console.error(err));
-	};
-
-	service.fetchPlayer = function (gameKey, playerKey) {
-		let playerRef = gamesRef.child(gameKey + "/players/" + playerKey);
-		return $firebaseObject(playerRef);
-	};
-
-	service.fetchPlayers = function (gameKey) {
-		let playersRef = gamesRef.child(gameKey + "/players");
-		return $firebaseObject(playersRef);
-	};
-
-    service.cancelGame = function (gameKey) {
-        let gameRef = gamesRef.child(gameKey);
-        gameRef.set(null);
-    }
 
 	service.startGame = function (game) {
 		let gameRef = gamesRef.child(game.$id);

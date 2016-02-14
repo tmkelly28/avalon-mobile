@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('RoomViewService', function (Session, FbChatService, FbGamesService) {
+app.service('RoomViewService', function (Session, ChatService, GamesService) {
 
     let $scope;
 
@@ -19,7 +19,7 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
     }
 
     function _addToTeam (player) {
-        FbGamesService.addToTeam($scope.game.$id, player);
+        GamesService.addToTeam($scope.game.$id, player);
     }
 
     function _phaseIs (phase) {
@@ -45,33 +45,33 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
             .then(() => $scope.questResultModal.remove());
     };
     this.addMessage = (message) => {
-        message.text ? FbChatService.addChat($scope.chats, Session.user, message.text) : null;
+        message.text ? ChatService.addChat($scope.chats, Session.user, message.text) : null;
         message.text = '';
     };
     this.isHost = () => Session.user._id === $scope.game.host;
     this.ableToBegin = () => Object.keys($scope.game.players).length >= $scope.game.targetSize && Object.keys($scope.game.players).length < 11;
-    this.startGame = () => FbGamesService.startGame($scope.game);
+    this.startGame = () => GamesService.startGame($scope.game);
     this.me = (player) => player._id === $scope.user._id;
     this.proposeTeam = () => {
         return Promise.all($scope.selected.map(_player => _addToTeam(_player)))
             .then(() => {
                 $scope.selected = [];
-                FbGamesService.proposeTeam($scope.game.$id);
+                GamesService.proposeTeam($scope.game.$id);
             });
     };
     this.disablePropose = () => $scope.selected.length !== $scope.game.currentQuestPlayersNeeded;
     this.resetTeam = () => {
         $scope.selected = [];
-        FbGamesService.resetTeam($scope.game.$id)
+        GamesService.resetTeam($scope.game.$id)
     };
-    this.voteApprove = () => FbGamesService.approveTeam($scope.game.$id, $scope.userRecord.playerKey);
-    this.voteReject = () => FbGamesService.rejectTeam($scope.game.$id, $scope.userRecord.playerKey);
-    this.successQuest = () => FbGamesService.voteToSucceed($scope.game.$id, $scope.userRecord.playerKey);
-    this.failQuest = () => FbGamesService.voteToFail($scope.game.$id, $scope.userRecord.playerKey);
+    this.voteApprove = () => GamesService.approveTeam($scope.game.$id, $scope.userRecord.playerKey);
+    this.voteReject = () => GamesService.rejectTeam($scope.game.$id, $scope.userRecord.playerKey);
+    this.successQuest = () => GamesService.voteToSucceed($scope.game.$id, $scope.userRecord.playerKey);
+    this.failQuest = () => GamesService.voteToFail($scope.game.$id, $scope.userRecord.playerKey);
     this.guessMerlin = () => {
         let _player = $scope.selected[0];
         $scope.selected = [];
-        FbGamesService.guessMerlin($scope.game.$id, _player);
+        GamesService.guessMerlin($scope.game.$id, _player);
     };
     this.range = (n, m) => _.range(n, m);
     this.disableLady = (user) => {
@@ -97,7 +97,7 @@ app.service('RoomViewService', function (Session, FbChatService, FbGamesService)
             loyalty: _player.loyalty,
             displayName: _player.displayName
         }
-        FbGamesService.useLady($scope.game.$id, _player, $scope);
+        GamesService.useLady($scope.game.$id, _player, $scope);
     };
     this.isSelected = (player) => _has($scope.selected, player);
     this.select = (player) => $scope.isSelected(player) ? _remove($scope.selected, player) : $scope.selected.push(player);

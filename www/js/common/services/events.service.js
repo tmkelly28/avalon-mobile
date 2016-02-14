@@ -1,6 +1,6 @@
 'use strict';
 
-app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $ionicModal) {
+app.service('FirebaseEvents', function (GamesService, Session, UserService, $ionicModal) {
 
 	this.registerListeners = function (game, user, scope) {
 
@@ -30,16 +30,16 @@ app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $i
 			if (!game.players) return; // prevent error on refresh
 			let numberOfPlayers = Object.keys(game.players).length;
 			if ((approves + rejects) === numberOfPlayers) {
-				if (approves > rejects) FbGamesService.goToQuestVoting(gameId);
-				else FbGamesService.goToNextTurn(gameId, 'rejectedQuest');
+				if (approves > rejects) GamesService.goToQuestVoting(gameId);
+				else GamesService.goToNextTurn(gameId, 'rejectedQuest');
 			}
 		}
 		function tallyGrails (successes, fails) {
 			if (!game.currentQuestPlayersGoing) return; // prevent error on refresh
 			let questSize = Object.keys(game.currentQuestPlayersGoing).length;
 			if ((successes + fails) === questSize) {
-				if (fails >= game.currentQuestToFail) FbGamesService.goToQuestResult(gameId, 'evil');
-                else FbGamesService.goToQuestResult(gameId, 'good');
+				if (fails >= game.currentQuestToFail) GamesService.goToQuestResult(gameId, 'evil');
+                else GamesService.goToQuestResult(gameId, 'good');
                 $ionicModal
                     .fromTemplateUrl('js/room/questResultModal.html', {
                         scope: scope,
@@ -144,13 +144,13 @@ app.service('FirebaseEvents', function (FbGamesService, Session, UserService, $i
 
 		// track end game conditions
 		currentVoteTrackRef.on('value', snap => {
-			if (snap.val() === 5) FbGamesService.endGame(gameId, 'evil');
+			if (snap.val() === 5) GamesService.endGame(gameId, 'evil');
 		});
 		loyalScoreRef.on('value', snap => {
-			if (snap.val() === 3) FbGamesService.endGame(gameId, 'good');
+			if (snap.val() === 3) GamesService.endGame(gameId, 'good');
 		});
 		evilScoreRef.on('value', snap => {
-			if (snap.val() === 3) FbGamesService.endGame(gameId, 'evil');
+			if (snap.val() === 3) GamesService.endGame(gameId, 'evil');
 		});
 	};
 
